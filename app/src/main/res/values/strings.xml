@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">标贝识别</string>
+    <string name="string_file_speech">文件识别</string>
+    <string name="string_file_speech_tips">文件识别功能正在开发中..</string>
+    <string name="string_voice_speech">语音识别</string>
+    <string name="string_start_recognize">开始识别</string>
+    <string name="string_stop_recognize">结束识别</string>
+</resources>
