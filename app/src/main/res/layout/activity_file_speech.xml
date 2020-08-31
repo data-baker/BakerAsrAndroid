@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FileSpeechActivity">
+    android:orientation="vertical"
+    tools:context=".VoiceSpeechActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:id="@+id/startRecognizeUseFile"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/string_file_speech" />
+
+        <Button
+            android:id="@+id/stopRecognize"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/string_stop_recognize" />
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/string_file_speech_tips"
-        android:layout_gravity="center"
-        />
+        android:id="@+id/tv_Status"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:fadeScrollbars="false"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:scrollbarFadeDuration="1000"
+        android:scrollbarStyle="insideOverlay"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_Result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="30dp"
+        android:scrollbarFadeDuration="1000"
+        android:scrollbarStyle="insideOverlay"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+</LinearLayout>

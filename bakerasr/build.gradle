@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('bakerasr.aar'))
+artifacts.add("default", file('speechasr-release.aar'))
