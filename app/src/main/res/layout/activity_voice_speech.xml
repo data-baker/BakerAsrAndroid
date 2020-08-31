@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VoiceSpeechActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".VoiceSpeechActivity">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/startRecognize"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_margin="30dp"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/string_start_recognize"/>
+            android:text="@string/string_start_recognize" />
+
+
 
         <Button
             android:id="@+id/stopRecognize"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_margin="30dp"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/string_stop_recognize"/>
+            android:text="@string/string_stop_recognize" />
     </LinearLayout>
 
     <TextView
@@ -34,25 +36,25 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:fadeScrollbars="false"
-        android:scrollbarFadeDuration="1000"
-        android:scrollbarStyle="insideOverlay"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"/>
+        android:scrollbarFadeDuration="1000"
+        android:scrollbarStyle="insideOverlay"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_Result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbarFadeDuration="1000"
         android:fadeScrollbars="false"
-        android:paddingTop="10dp"
         android:paddingStart="30dp"
+        android:paddingTop="10dp"
         android:paddingEnd="30dp"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimary"/>
+        android:scrollbarFadeDuration="1000"
+        android:scrollbarStyle="insideOverlay"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
 
 </LinearLayout>
