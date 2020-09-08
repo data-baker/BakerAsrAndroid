@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Random;
 
 public class VoiceSpeechActivity extends AppCompatActivity implements BakerRecognizerCallback, View.OnClickListener {
-    public final static String clientId = "61dfd38e-175e-44b0-971a-36f70ee71d66";
-    public final static String clientSecret = "NTBlOTIwOGQtM2UzZS00Y2ZlLWI0ZWUtMTU5NjIwN2JiZTNl";
+    public final static String clientId = "";
+    public final static String clientSecret = "";
     private BakerRecognizer bakerRecognizer;
     private TextView resultTv, statusTv;
 
