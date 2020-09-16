@@ -8,18 +8,17 @@
     tools:context=".VoiceSpeechActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/startRecognizeUseFile"
+            android:id="@+id/startRecognizeUseCustomFile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/string_file_speech" />
+            android:text="打开文件管理器选择，仅支持.pcm文件" />
 
         <Button
             android:id="@+id/stopRecognize"

@@ -1,8 +1,15 @@
 package com.baker.asr.demo;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -10,17 +17,16 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.baker.asr.demo.permission.PermissionUtil;
 import com.baker.speech.asr.BakerRecognizer;
 import com.baker.speech.asr.basic.BakerRecognizerCallback;
 import com.baker.speech.asr.utils.HLogger;
 import com.baker.speech.asr.utils.WriteLog;
+import com.blankj.utilcode.util.UriUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
@@ -110,49 +116,56 @@ public class FileSpeechActivity extends AppCompatActivity implements BakerRecogn
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.startRecognize:
-                if (bakerRecognizer != null) {
-                    setParams();
-                    //返回0启动成功，返回1=callback为空，未启动成功
-                    int result = bakerRecognizer.startRecognize();
-                    HLogger.d("result==" + result);
-                }
-                break;
-            case R.id.startRecognizeUseFile:
-                if (bakerRecognizer != null) {
-                    setParams();
-                    //复制文件到
-                    File file = new File(getExternalFilesDir("") + "temp.pcm");
-                    try {
-                        InputStream inputStream = getAssets().open("0.pcm");
-                        HLogger.d("temp路径" + file.getAbsolutePath());
-                        FileOutputStream fos = new FileOutputStream(file);
+        int id = view.getId();
+        if (id == R.id.startRecognize) {
+            if (bakerRecognizer != null) {
+                setParams();
+                //返回0启动成功，返回1=callback为空，未启动成功
+                int result = bakerRecognizer.startRecognize();
+                HLogger.d("result==" + result);
+            }
+        }
+        else if (id == R.id.stopRecognize) {
+            bakerRecognizer.stopRecognition();
+        } else if (id == R.id.startRecognizeUseCustomFile) {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            //允许多选 长按多选
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+            //不限制选取类型
+            intent.setType("*/*");
+            startActivityForResult(intent, 333);
+        }
+    }
 
-                        int len;
-                        byte[] buffer = new byte[1024];
-                        while ((len = inputStream.read(buffer)) != -1) {
-                            fos.write(buffer, 0, len);
-                        }
-                        fos.close();
-                        inputStream.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        log("onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 333:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    //当单选选了一个文件后返回
+                    if (data.getData() != null) {
+                        Uri uri = data.getData();
+                        File file = UriUtils.uri2File(uri);
+                        log(file.getPath());
+
+                        int result = bakerRecognizer.startRecognize(file.getAbsolutePath());
+                        HLogger.d("result==" + result);
                     }
-
-                    int result = bakerRecognizer.startRecognize(file.getAbsolutePath());
-                    HLogger.d("result==" + result);
                 }
-                break;
-            case R.id.stopRecognize:
-                bakerRecognizer.stopRecognition();
-                break;
-            default:
                 break;
         }
     }
 
-    private Random random = new Random();
+    private void log(String msg) {
+        System.out.println("ASR =>" + msg);
+    }
+
+
+    private final Random random = new Random();
 
     private void setParams() {
         //设置采样率 目前只支持16000  默认16000
